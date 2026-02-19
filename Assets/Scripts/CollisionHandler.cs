@@ -3,18 +3,23 @@ using UnityEngine;
 
 public class CollisionHandler : MonoBehaviour
 {
-    public event Action<Cube> CollisionEnter;
+    private bool _isCollisioned;
+    public event Action CollisionEnter;
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.transform.TryGetComponent(out Cube cube))
+        if (_isCollisioned == false)
         {
-            CollisionEnter?.Invoke(cube);
+            if (other.transform.TryGetComponent(out Platform platform))
+            {
+                _isCollisioned = true;
+                CollisionEnter?.Invoke();
+            }
         }
     }
-
-    private void OnDestroy()
+    
+    public void ResetCollision()
     {
-        CollisionEnter =  null;
+        _isCollisioned = false;
     }
 }

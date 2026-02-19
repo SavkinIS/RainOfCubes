@@ -10,7 +10,7 @@ public class CubesSpawner : MonoBehaviour
     [SerializeField] private float _spawnDelay;
 
     private int _poolCapacity = 50;
-    private RandomPosition _randomPosition;
+    private PositionRandomizer _positionRandomizer;
     private ObjectPool<Cube> _pool;
     private float _elapsedTime = 0f;
     private bool _isTicking = true;
@@ -20,12 +20,12 @@ public class CubesSpawner : MonoBehaviour
 
     private void Start()
     {
-        _randomPosition = new RandomPosition(_cubeSpawnPlate);
+        _positionRandomizer = new PositionRandomizer(_cubeSpawnPlate);
 
         _pool = new ObjectPool<Cube>(
-            createFunc: InstatiateCube,
-            actionOnGet: Getted,
-            actionOnRelease: Released,
+            createFunc: InstantiateCube,
+            actionOnGet: OnGetNextCube,
+            actionOnRelease: Release,
             defaultCapacity: _poolCapacity,
             maxSize: 100);
     }
@@ -50,27 +50,30 @@ public class CubesSpawner : MonoBehaviour
         _pool.Release(cube);
     }
 
-    private void Released(Cube cube)
+    private void Release(Cube cube)
     {
         cube.gameObject.SetActive(false);
     }
 
-    private void Getted(Cube cube)
+    private void OnGetNextCube(Cube cube)
     {
-        cube.UpdateBeforeSpawn(_randomPosition.GetRandomPosition());
+        cube.UpdateBeforeSpawn(_positionRandomizer.GetRandomPosition());
         cube.gameObject.SetActive(true);
         CubeSpawned?.Invoke(cube);
     }
 
-    private Cube InstatiateCube()
+    private Cube InstantiateCube()
     {
         Cube cube = Instantiate(_cubePrefab, transform);
+        cube.SetSpawner(this);
         cube.gameObject.SetActive(false);
         return cube;
     }
 
     private IEnumerator SpawnCubesCoroutine()
     {
+        yield return new WaitForSeconds(_spawnDelay);
+        
         while (_isTicking)
         {
             _elapsedTime += Time.deltaTime;

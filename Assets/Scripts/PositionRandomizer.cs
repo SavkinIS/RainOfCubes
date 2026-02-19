@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RandomPosition
+public class PositionRandomizer
 {
     private const float HalfReduceValue = 2;
 
@@ -10,7 +10,7 @@ public class RandomPosition
     private float _maxPositionZ;
     private float _basePositionY;
 
-    public RandomPosition(Transform spawnPlate)
+    public PositionRandomizer(Transform spawnPlate)
     {
         _minPositionX = spawnPlate.localPosition.x - spawnPlate.localScale.x / HalfReduceValue;
         _maxPositionX = spawnPlate.localPosition.x + spawnPlate.localScale.x / HalfReduceValue;

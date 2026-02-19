@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class ColorChanger
+public class ColorChanger : MonoBehaviour
 {
+    [SerializeField] private MeshRenderer _meshRenderer;
+    
     private readonly Color _baseColor;
 
     public ColorChanger()
@@ -9,13 +11,13 @@ public class ColorChanger
         _baseColor = Color.white;
     }
 
-    public void UpdateColor(Cube cube)
+    public void UpdateColor()
     {
-        cube.MeshRenderer.material.color = Random.ColorHSV();
+        _meshRenderer.material.color = Random.ColorHSV();
     }
 
-    public void SetBaseColor(Cube cube)
+    public void SetBaseColor()
     {
-        cube.MeshRenderer.material.color = _baseColor;
+        _meshRenderer.material.color = _baseColor;
     }
 }
