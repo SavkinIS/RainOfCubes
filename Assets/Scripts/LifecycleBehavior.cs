@@ -9,38 +9,34 @@ public class LifecycleBehavior : MonoBehaviour
 
     [SerializeField] private int _minLifetime = 2;
     [SerializeField] private int _maxLifetime = 5;
-    
+
     private bool _isTicking = true;
     private float _lifetime;
     private Coroutine _lifecycleCoroutine;
 
     public event Action CubeLifetimeEnded;
-    
+
     public void StartLifecycle()
     {
         _lifetime = Random.Range(_minLifetime, _maxLifetime + 1);
         StartCoroutine(TimerCoroutine());
     }
-    
+
     private IEnumerator TimerCoroutine()
     {
         yield return new WaitForSeconds(TickInterval);
 
         while (_isTicking)
         {
-            float timeElapsed = Time.deltaTime;
-
-            _lifetime -= timeElapsed;
+            _lifetime -= TickInterval;
 
             if (_lifetime <= 0)
             {
-                CubeLifetimeEnded?.Invoke();         
+                CubeLifetimeEnded?.Invoke();
                 break;
             }
-            else
-            {
-                yield return null;
-            }
+
+            yield return null;
         }
     }
 }
