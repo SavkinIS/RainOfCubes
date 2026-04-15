@@ -61,6 +61,3 @@ public class Bomb : SpawnableObject
         _bombesSpawner.ReleasedToPool(this);
     }
 }
-
-public class SpawnableObject : MonoBehaviour
-{}
