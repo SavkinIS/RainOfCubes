@@ -22,7 +22,6 @@ public class SpawnerCounterViewBase<T> : MonoBehaviour where T : ISpawnerInfo
         _spawner.ActiveObjectsCountChanged -= UpdateActiveObjects;
     }
     
-    
     private void UpdateActiveObjects(int count)
     {
         _totalActiveObjects.text = $"Всего активных объектов {count}";
