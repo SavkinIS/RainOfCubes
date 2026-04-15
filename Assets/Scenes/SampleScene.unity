@@ -244,7 +244,7 @@ MonoBehaviour:
   _totalSpawnedObjects: {fileID: 512213938}
   _totalCreatedObjects: {fileID: 2089287106}
   _totalActiveObjects: {fileID: 1528324155}
-  _cubesSpawner: {fileID: 1988598279}
+  _spawner: {fileID: 1988598279}
 --- !u!1 &95099080
 GameObject:
   m_ObjectHideFlags: 0
@@ -1183,7 +1183,7 @@ MonoBehaviour:
   _totalSpawnedObjects: {fileID: 1808375334}
   _totalCreatedObjects: {fileID: 376211740}
   _totalActiveObjects: {fileID: 765664501}
-  _bombSpawner: {fileID: 719988382}
+  _spawner: {fileID: 719988382}
 --- !u!222 &701372488
 CanvasRenderer:
   m_ObjectHideFlags: 0
